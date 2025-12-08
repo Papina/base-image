@@ -1,0 +1,54 @@
+# Traefik Static Configuration File
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
+# Define EntryPoints
+entryPoints:
+  web:
+    address: ":80"
+    asDefault: true  # Default entrypoint for all discovered services 
+    observability:
+      accessLogs: true # Log Access to services
+  websecure:
+    address: ":443"
+    # asDefault: true  # Default entrypoint for all discovered services 
+    observability:
+      accessLogs: true # Log Access to services
+
+# API and Dashboard configuration
+api:
+  dashboard: true
+
+# Log configuration
+log:
+  format: json
+  level: DEBUG
+  filePath: "/var/log/traefik.log"
+
+# Filter out much of the success noise
+accessLog:
+  format: json
+  filters:
+    statusCodes:
+      - "300-302"
+      - "500-510"  
+  fields:
+    defaultMode: drop
+    names:
+      OriginStatus: keep
+      RequestHost: keep
+      RequestScheme: keep
+      RouterName: keep
+      ServiceName: keep
+      entryPointName: keep
+
+# Don't check the validity of a containers SSL certs
+serversTransport:
+  insecureSkipVerify: true
+
+# Providers of Dynamic Config
+providers:
+  file:
+    directory: /opt/portal-aio/traefik/rules
+    watch: true

@@ -31,9 +31,9 @@ instance_portal() {
         /opt/portal-aio/venv/bin/pip install -r /opt/portal-aio/requirements.txt 2>&1 | tee -a /var/log/portal/portal.log
     fi
 
-    cd /opt/portal-aio/caddy_manager || exit 1
-    /opt/portal-aio/venv/bin/python caddy_config_manager.py 2>&1 | tee -a /var/log/portal/caddy.log
-    /opt/portal-aio/caddy_manager/caddy run --config /etc/Caddyfile 2>&1 | tee -a /var/log/portal/caddy.log &
+    cd /opt/portal-aio/traefik || exit 1
+    # /opt/portal-aio/venv/bin/python caddy_config_manager.py 2>&1 | tee -a /var/log/portal/traefik.log
+    /opt/portal-aio/traefik/traefik 2>&1 | tee -a /var/log/portal/traefik.log &
     PIDS+=($!)
 
     cd /opt/portal-aio/tunnel_manager || exit 1

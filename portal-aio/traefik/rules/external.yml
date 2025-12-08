@@ -1,0 +1,43 @@
+http:
+  routers:
+    dashboard:
+      rule: HostRegexp(`traefik.*`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      service: api@internal
+
+    # synology-rtr:
+    #   entryPoints: 
+    #     - web
+    #     - websecure
+    #   rule: "HostRegexp(`synology.*`)"
+    #   service: synology-svc
+
+    # modem-rtr:
+    #   entryPoints: 
+    #     - web
+    #     - websecure
+    #   rule: "HostRegexp(`modem.*`)"
+    #   service: modem-svc
+
+    # mk-rtr:
+    #   entryPoints: 
+    #     - web
+    #     - websecure
+    #   rule: "HostRegexp(`mk.*`)"
+    #   service: mk-svc
+
+
+  # services:
+  #   synology-svc:
+  #     loadBalancer:
+  #       servers:
+  #         - url: "http://192.168.176.52:5000/"
+
+  #   modem-svc:
+  #     loadBalancer:
+  #       servers:
+  #         - url: "http://192.168.184.1"
+
+  #   mk-svc:
+  #     loadBalancer:
+  #       servers:
+  #         - url: "http://127.0.0.1:8000/obs-comp/"
