@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 # Choose a base image.  Sensible options include ubuntu:xx.xx, nvidia/cuda:xx-cuddnx
 ARG BASE_IMAGE
 
@@ -150,7 +152,7 @@ RUN \
         pocl-opencl-icd \
         opencl-headers \
         ocl-icd-dev \
-        ocl-icd-opencl-dev && \
+        ocl-icd-opencl-dev && apt-get -y remove python3-cryptography && \
     # Ensure TensorRT where applicable
     if [ -n "${CUDA_VERSION:-}" ]; then \
         CUDA_MAJOR_MINOR=$(echo ${CUDA_VERSION} | cut -d. -f1,2) && \
