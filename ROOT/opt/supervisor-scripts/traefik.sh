@@ -6,12 +6,12 @@ utils=/opt/supervisor-scripts/utils
 . "${utils}/environment.sh"
 . "${utils}/exit_serverless.sh"
 
-# # Run the caddy configurator
-cd /opt/portal-aio/traefik
-
+# Run the caddy configurator (Legacy until i vibe it out)
+cd /opt/portal-aio/caddy_manager
 /opt/portal-aio/venv/bin/python caddy_config_manager.py
 
-# # Ensure the portal config file exists if running without PORTAL_CONFIG
+cd /opt/portal-aio/traefik
+# Ensure the portal config file exists if running without PORTAL_CONFIG
 touch /etc/portal.yaml
 
 if [[ -f /opt/portal-aio/traefik/traefik.yml ]]; then
