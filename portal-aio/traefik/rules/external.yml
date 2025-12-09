@@ -1,8 +1,36 @@
 http:
   routers:
     dashboard:
-      rule: HostRegexp(`traefik.*`) || (Host(`192.168.176.99`) && PathPrefix(`/dashboard`))
+      rule: HostRegexp(`traefik.*`) && PathPrefix(`/dashboard`)
       service: api@internal
+
+    portal-rtr:
+      entryPoints: 
+        - web
+        - websecure
+      rule: "HostRegexp(`portal.*`)"
+      service: portal-svc
+
+    sync-rtr:
+      entryPoints: 
+        - web
+        - websecure
+      rule: "HostRegexp(`sync.*`)"
+      service: sync-svc
+
+    jupyter-rtr:
+      entryPoints: 
+        - web
+        - websecure
+      rule: "HostRegexp(`jupyter.*`)"
+      service: jupyter-svc
+
+    tensorboard-rtr:
+      entryPoints: 
+        - web
+        - websecure
+      rule: "HostRegexp(`tensorboard.*`)"
+      service: tensorboard-svc
 
     tunnel-rtr:
       entryPoints: 
@@ -11,33 +39,40 @@ http:
       rule: "HostRegexp(`tunnel.*`)"
       service: tunnel-svc
 
-    # modem-rtr:
-    #   entryPoints: 
-    #     - web
-    #     - websecure
-    #   rule: "HostRegexp(`modem.*`)"
-    #   service: modem-svc
-
-    # mk-rtr:
-    #   entryPoints: 
-    #     - web
-    #     - websecure
-    #   rule: "HostRegexp(`mk.*`)"
-    #   service: mk-svc
-
+    comfy-rtr:
+      entryPoints: 
+        - web
+        - websecure
+      rule: "HostRegexp(`comfy.*`)"
+      service: comfy-svc
 
   services:
+    portal-svc:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:11111"
+
+    sync-svc:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:18384"
+
+    jupyter-svc:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:18080"
+
+    tensorboard-svc:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:16006"
+
     tunnel-svc:
       loadBalancer:
         servers:
-          - url: "http://127.0.0.1:11112/"
+          - url: "http://127.0.0.1:11112"
 
-  #   modem-svc:
-  #     loadBalancer:
-  #       servers:
-  #         - url: "http://192.168.184.1"
-
-  #   mk-svc:
-  #     loadBalancer:
-  #       servers:
-  #         - url: "http://127.0.0.1:8000/obs-comp/"
+    comfy-svc:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:18188"
