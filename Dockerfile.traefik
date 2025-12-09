@@ -257,6 +257,8 @@ RUN \
 COPY ./portal-aio /opt/portal-aio
 COPY --from=traefik_builder /usr/local/bin/traefik /opt/portal-aio/traefik/traefik
 ARG TARGETARCH
+ARG PYTHON_VERSION=3.12
+
 RUN \
     chown -R 0:0 /opt/portal-aio && \
     set -euo pipefail && \

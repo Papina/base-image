@@ -1,15 +1,15 @@
 http:
   routers:
     dashboard:
-      rule: HostRegexp(`traefik.*`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      rule: HostRegexp(`traefik.*`) || (Host(`192.168.176.99`) && PathPrefix(`/dashboard`))
       service: api@internal
 
-    # synology-rtr:
-    #   entryPoints: 
-    #     - web
-    #     - websecure
-    #   rule: "HostRegexp(`synology.*`)"
-    #   service: synology-svc
+    tunnel-rtr:
+      entryPoints: 
+        - web
+        - websecure
+      rule: "HostRegexp(`tunnel.*`)"
+      service: tunnel-svc
 
     # modem-rtr:
     #   entryPoints: 
@@ -26,11 +26,11 @@ http:
     #   service: mk-svc
 
 
-  # services:
-  #   synology-svc:
-  #     loadBalancer:
-  #       servers:
-  #         - url: "http://192.168.176.52:5000/"
+  services:
+    tunnel-svc:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:11112/"
 
   #   modem-svc:
   #     loadBalancer:

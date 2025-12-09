@@ -9,12 +9,12 @@ utils=/opt/supervisor-scripts/utils
 # # Run the caddy configurator
 cd /opt/portal-aio/traefik
 
-# # /opt/portal-aio/venv/bin/python caddy_config_manager.py
+/opt/portal-aio/venv/bin/python caddy_config_manager.py
 
 # # Ensure the portal config file exists if running without PORTAL_CONFIG
-# touch /etc/portal.yaml
+touch /etc/portal.yaml
 
-if [[ -f /opt/portal-aio/traefik.yml ]]; then
+if [[ -f /opt/portal-aio/traefik/traefik.yml ]]; then
     # Frontend log viewer will force a page reload if this string is detected
     echo "Starting Traefik..." 
     /opt/portal-aio/traefik/traefik 2>&1

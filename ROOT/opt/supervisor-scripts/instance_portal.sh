@@ -5,7 +5,8 @@ utils=/opt/supervisor-scripts/utils
 . "${utils}/cleanup_generic.sh"
 . "${utils}/environment.sh"
 . "${utils}/exit_serverless.sh"
-. "${utils}/exit_portal.sh" "instance portal"
+
+# . "${utils}/exit_portal.sh" "instance portal"
 
 cd /opt/portal-aio/portal
 # Log outside of /var/log/portal

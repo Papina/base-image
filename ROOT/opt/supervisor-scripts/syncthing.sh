@@ -5,7 +5,8 @@ utils=/opt/supervisor-scripts/utils
 . "${utils}/cleanup_generic.sh"
 . "${utils}/environment.sh"
 . "${utils}/exit_serverless.sh"
-. "${utils}/exit_portal.sh" "syncthing"
+
+# . "${utils}/exit_portal.sh" "syncthing"
 
 # Keep the per-machine settings out of /home/user in case of volume syncing /home
 export STCONFDIR=${STCONFDIR:-/opt/syncthing/config}

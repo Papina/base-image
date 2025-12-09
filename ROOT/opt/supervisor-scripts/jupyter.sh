@@ -20,7 +20,7 @@ if [[ -f /.launch ]] && grep -qi jupyter /.launch && [[ "${JUPYTER_OVERRIDE,,}" 
     exit 0
 fi
 
-. "${utils}/exit_portal.sh" "jupyter"
+# . "${utils}/exit_portal.sh" "jupyter"
 
 # Required for default jupyter override
 pgrep -f "jupyter-lab|jupyter-notebook|jupyter notebook" | xargs -r kill -9 > /dev/null 2>&1
